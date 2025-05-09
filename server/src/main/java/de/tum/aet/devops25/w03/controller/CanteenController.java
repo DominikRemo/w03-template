@@ -27,6 +27,11 @@ public class CanteenController {
     @GetMapping("/{canteenName}/today")
     public ResponseEntity<List<Dish>> getTodayMeals(@PathVariable String canteenName) {
         List<Dish> todayMeals = canteenService.getTodayMeals(canteenName);
+
+        if (todayMeals.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        // Return the list of dishes with HTTP 200 OK
         return ResponseEntity.ok(todayMeals);
     }
 }
